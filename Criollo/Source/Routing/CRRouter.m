@@ -187,6 +187,17 @@ NS_ASSUME_NONNULL_END
     [self addRoute:route];
 }
 
+- (void)replace:(NSString * _Nullable)path block:(CRRouteBlock)block {
+    CRRoute* route = [[CRRoute alloc] initWithBlock:block method:CRHTTPMethodAll path:path recursive:NO];
+    
+    NSUInteger index = [self.routes indexOfObject:route];
+    
+    if (index != NSNotFound) {
+        [self.routes removeObjectAtIndex:index];
+    }
+    
+    [self addRoute:route];
+}
 
 #pragma mark - Routing
 
